@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 // import style from './style.css'
 
 const propTypes = {
-    
+    consoleData: PropTypes.object
 }
 
 const defaultProps = {
@@ -14,11 +14,26 @@ class Console extends Component {
         super(props)
         this.state = {
             consoleText: ''
-        }        
+        }
+        this.consoleWrite = this.consoleWrite.bind(this)        
     }
 
     componentWillReceiveProps(nextProps) {
-        
+        const { consoleData: { databaseName, text } } = nextProps
+        this.setState({consoleText: {
+                ...this.state.consoleText,
+                [databaseName]: text
+            }
+        })
+    }
+
+    consoleWrite(consoleData) {
+        return Object.keys(consoleData).map((k, i) => (
+            <div key={i}>
+                <p>{`${k}:`}</p>
+                <p>{consoleData[k]}</p>
+            </div>
+        ))
     }
 
     render() {
@@ -31,7 +46,11 @@ class Console extends Component {
                         padding: 20
                     }}
                 >
-                    {consoleText || 'Click any button to start ...'}
+                    {
+                    consoleText 
+                        ? this.consoleWrite(consoleText)
+                        : 'Click any button to start ...'
+                    }
                 </div>
             </div>
         )

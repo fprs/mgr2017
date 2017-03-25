@@ -6,7 +6,7 @@ export default class App extends Component {
   constructor(props){
     super(props)
 
-    this.state = { consoleData: '' }
+    this.state = { consoleData: {} }
 
     this.passDataToConsole = this.passDataToConsole.bind(this)
   }
