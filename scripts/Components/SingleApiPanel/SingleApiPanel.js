@@ -15,13 +15,20 @@ class SingleApiPanel extends Component {
         super(props)
         this.state = {
         }
+        this.onButtonClick = this.onButtonClick.bind(this)
+    }
+
+    onButtonClick() {
+        const { name, passDataToConsole } = this.props
+        const d = new Date()
+        passDataToConsole(`Clicked ${name} at ${d}`, name)
     }
 
     render() {
         const { name, passDataToConsole } = this.props
         return (
             <div>
-                <button>{name}</button>
+                <button onClick={this.onButtonClick}>{name}</button>
             </div>
         )
     }
