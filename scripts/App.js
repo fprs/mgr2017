@@ -20,7 +20,7 @@ export default class App extends Component {
     return (
       <div>
         <div style={{display: 'flex'}}>
-          {['SQL', 'GraphQL', 'Redis'].map(name => <SingleApiPanel name={name} passDataToConsole={this.passDataToConsole} />)}
+          {['SQL', 'GraphQL', 'Redis'].map((name, i) => <SingleApiPanel name={name} key={i} passDataToConsole={this.passDataToConsole} />)}
         </div>
         <Console consoleData={consoleData} />
       </div>

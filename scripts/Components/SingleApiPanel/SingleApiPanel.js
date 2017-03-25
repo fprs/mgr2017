@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react'
 // import style from './style.css'
 
 const propTypes = {
-    propTypes
+    passDataToConsole: PropTypes.func,
+    name: PropTypes.string
 }
 
 const defaultProps = {
@@ -17,7 +18,7 @@ class SingleApiPanel extends Component {
     }
 
     render() {
-        const { name } = this.props
+        const { name, passDataToConsole } = this.props
         return (
             <div>
                 <button>{name}</button>
