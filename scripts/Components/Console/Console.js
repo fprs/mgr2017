@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 // import style from './style.css'
 
 const propTypes = {
-    propTypes
+    
 }
 
 const defaultProps = {
