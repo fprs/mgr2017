@@ -3,7 +3,8 @@ import React, { Component, PropTypes } from 'react'
 
 const propTypes = {
     passDataToConsole: PropTypes.func,
-    name: PropTypes.string
+    name: PropTypes.string,
+    active: PropTypes.bool
 }
 
 const defaultProps = {
@@ -20,15 +21,23 @@ class SingleApiPanel extends Component {
 
     onButtonClick() {
         const { name, passDataToConsole } = this.props
-        const d = new Date()
-        passDataToConsole(`Clicked ${name} at ${d}`, name)
+        const d = Date.now()
+        const promises = [1,1,1,1,1].map(() => new Promise((resolve, reject) => {
+                const now = Date.now()
+                passDataToConsole(`Started ${name} request`, name, false)
+                setTimeout(() => resolve(now), Math.random()*600+400)
+            }
+        ))
+        Promise.all(promises).then(d => {
+            passDataToConsole(`All promises from ${name} resolved in ${Date.now() - Math.max(...d)} ms`, name, true)
+        })
     }
 
     render() {
-        const { name, passDataToConsole } = this.props
+        const { name, passDataToConsole, active } = this.props
         return (
             <div>
-                <button onClick={this.onButtonClick}>{name}</button>
+                <button onClick={this.onButtonClick} disabled={!active}>{name}</button>
             </div>
         )
     }
