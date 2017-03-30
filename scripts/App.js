@@ -6,21 +6,40 @@ export default class App extends Component {
   constructor(props){
     super(props)
 
-    this.state = { consoleData: {} }
+    this.buttons = ['SQL', 'GraphQL', 'Redis']
+
+    this.state = { 
+      consoleData: {},
+      buttonsActive: this.buttons.reduce((prev, curr) => ({ ...prev, [curr]: true }), {})
+    }
 
     this.passDataToConsole = this.passDataToConsole.bind(this)
   }
 
-  passDataToConsole(text, databaseName) {
-    this.setState({ consoleData: { text, databaseName } })
+  passDataToConsole(text, databaseName, isFinished) {
+    this.setState({ 
+      consoleData: { text, databaseName },
+      buttonsActive: {
+        ...this.state.buttonsActive,
+        [databaseName]: isFinished
+      }
+    })
   }
 
   render() {
-    const { consoleData } = this.state
+    const { consoleData, buttonsActive } = this.state
     return (
       <div>
         <div style={{display: 'flex'}}>
-          {['SQL', 'GraphQL', 'Redis'].map((name, i) => <SingleApiPanel name={name} key={i} passDataToConsole={this.passDataToConsole} />)}
+          {
+            this.buttons.map((name, i) => (
+              <SingleApiPanel
+                name={name} key={i}
+                passDataToConsole={this.passDataToConsole}
+                active={buttonsActive[name]}
+              />
+            ))
+          }
         </div>
         <Console consoleData={consoleData} />
       </div>
