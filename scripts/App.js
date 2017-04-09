@@ -6,7 +6,7 @@ export default class App extends Component {
   constructor(props){
     super(props)
 
-    this.buttons = ['SQL', 'GraphQL', 'Redis']
+    this.buttons = ['SQL', 'Mongo', 'Redis']
 
     this.state = { 
       consoleData: {},
